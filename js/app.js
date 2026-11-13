@@ -298,7 +298,7 @@ function majEntete() {
   $("#stat-serie").textContent = S.serie.jour === aujourdhui() || S.serie.jour === aujourdhui(new Date(Date.now() - 864e5)) ? S.serie.n : 0;
 }
 function appliquerTheme() {
-  const sombre = S.theme ? S.theme === "sombre" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const sombre = S.theme !== "clair";   // Nuit étoilée par défaut ; le bouton propose une version de jour
   document.documentElement.dataset.theme = sombre ? "sombre" : "clair";
   $("#btn-theme").setAttribute("aria-pressed", sombre);
 }
