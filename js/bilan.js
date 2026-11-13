@@ -1,6 +1,5 @@
 /* Niveaux et « code pour le professeur » : partagé par le site élève et le tableau de classe. */
-/* Seuils calés sur les trois escales du pilote : à relever quand le voyage s'allonge. */
-const NIVEAUX = [[0, "À quai"], [60, "Premier départ"], [200, "Cabotage"], [400, "Haute mer"], [650, "Long cours"], [1000, "Tour du monde"]];
+const NIVEAUX = [[0, "À quai"], [150, "Premier départ"], [500, "Cabotage"], [1100, "Haute mer"], [1900, "Long cours"], [2800, "Tour du monde"]];
 function niveau(xp) {
   let i = 0; while (i + 1 < NIVEAUX.length && NIVEAUX[i + 1][0] <= xp) i++;
   return { i, nom: NIVEAUX[i][1], min: NIVEAUX[i][0], max: i + 1 < NIVEAUX.length ? NIVEAUX[i + 1][0] : null };

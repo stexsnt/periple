@@ -364,12 +364,12 @@ const DEFIS = { id: "defis", titre: "Problèmes", resume: "", etapes: [
     reponse: 19607, indices: ["Il y a 7 × 7 = 49 chats, puis 7 fois plus de souris, et ainsi de suite.", "Il faut additionner 7 + 7² + 7³ + 7⁴ + 7⁵."],
     expl: "7 + 49 + 343 + 2 401 + 16 807 = 19 607. Le scribe additionne sans état d'âme des maisons, des chats et du grain : ce qui l'intéresse, c'est la somme des puissances de 7.",
     histoire: `<aside class="contexte"><strong>Le papyrus Rhind.</strong> Ce rouleau de cinq mètres, copié vers 1650 av. J.-C. par le scribe Ahmès, contient plus de 80 problèmes résolus. Il est conservé au British Museum. Une comptine anglaise bien plus tardive, « As I was going to St Ives », repose sur la même idée.</aside>` },
-  { t: "reponse", titre: "Achille rattrape la tortue", ep: "ant", date: "vers 450 av. J.-C.", origine: "Élée, Grande-Grèce", d: 2,
-    accroche: "Zénon affirme qu'Achille ne rattrapera jamais la tortue. À toi de dire quand il la rattrape.",
-    enonce: `<p>Achille court à 10 mètres par seconde, la tortue avance à 1 mètre par seconde. Elle part avec 100 mètres d'avance.</p><p>Zénon d'Élée raisonne ainsi : quand Achille arrive là où était la tortue, elle a avancé un peu ; quand il atteint ce nouveau point, elle a encore avancé ; et ainsi de suite, sans fin. Donc Achille ne la rattrape jamais.</p><p><strong>Au bout de combien de secondes Achille rattrape-t-il pourtant la tortue ?</strong> Donne une valeur exacte ou arrondie au centième.</p>`,
-    reponse: 100 / 9, tol: 0.006, indices: ["Appelle t la durée cherchée. Quelle distance a parcourue Achille ? Et la tortue ?", "Achille est à 10t mètres du départ, la tortue à 100 + t mètres. Ils se rejoignent quand ces deux distances sont égales."],
-    expl: "10t = 100 + t, donc t = 100/9, soit environ 11,11 secondes. Zénon découpe cette durée en une infinité d'étapes : 10 s, puis 1 s, puis 0,1 s… Leur somme est pourtant finie. Il faudra plus de deux mille ans pour donner un sens rigoureux à une somme infinie.",
-    histoire: `<aside class="legende"><strong>Histoire ou légende ?</strong> Aucun écrit de Zénon ne nous est parvenu. Ses paradoxes sont connus par Aristote, qui les expose un siècle plus tard pour les réfuter.</aside>` },
+  { t: "reponse", titre: "Le triangle de Héron", ep: "ant", date: "Ier siècle", origine: "Alexandrie, Héron", d: 2,
+    accroche: "Trois côtés, pas de hauteur, pas d'angle. Et pourtant l'aire est un nombre entier.",
+    enonce: `<p>Un champ triangulaire a pour côtés 13, 14 et 15. On ne connaît ni ses angles ni ses hauteurs.</p><p>Héron d'Alexandrie donne une recette qui n'a besoin que des trois côtés <span class="m">a</span>, <span class="m">b</span>, <span class="m">c</span>. On calcule d'abord le demi-périmètre <span class="m">s</span>, puis :</p><p class="formule">aire = √( <span class="m">s</span> × (<span class="m">s</span> − <span class="m">a</span>) × (<span class="m">s</span> − <span class="m">b</span>) × (<span class="m">s</span> − <span class="m">c</span>) )</p><p><strong>Quelle est l'aire de ce champ ?</strong></p>`,
+    reponse: 84, indices: ["Le périmètre vaut 13 + 14 + 15 = 42, donc s = 21.", "s − a = 8, s − b = 7, s − c = 6.", "21 × 8 × 7 × 6 = 7 056. Il reste à trouver le nombre dont le carré vaut 7 056."],
+    expl: "s = 21, puis 21 × 8 × 7 × 6 = 7 056 = 84². L'aire vaut 84. On peut vérifier autrement : la hauteur relative au côté 14 mesure 12, et 14 × 12 ÷ 2 = 84.",
+    histoire: `<aside class="contexte"><strong>Héron d'Alexandrie.</strong> Ingénieur et mathématicien du I<sup>er</sup> siècle, Héron décrit des automates, une fontaine, une machine à vapeur miniature et des instruments d'arpentage. Sa formule figure dans un traité de mesure retrouvé seulement en 1896. Le triangle 13, 14, 15 est son propre exemple. Des savants arabes du Moyen Âge attribuaient déjà la formule à Archimède.</aside>` },
   { t: "reponse", titre: "L'épitaphe de Diophante", ep: "ant", date: "vers 500", origine: "Anthologie grecque", d: 2,
     accroche: "Une tombe qui donne l'âge du défunt, à condition de résoudre une équation.",
     enonce: `<p>Une épigramme grecque raconte la vie du mathématicien Diophante d'Alexandrie :</p><p>Son enfance dura le sixième de sa vie. Sa barbe poussa après un douzième de plus. Il se maria après un septième de plus. Cinq ans plus tard, il eut un fils. Ce fils vécut la moitié de la vie de son père. Diophante mourut quatre ans après son fils.</p><p><strong>À quel âge Diophante est-il mort ?</strong></p>`,
@@ -408,31 +408,35 @@ const DEFIS = { id: "defis", titre: "Problèmes", resume: "", etapes: [
 `,
     tests: [{ appels: [["total_grains(1)", "1"], ["total_grains(3)", "7"], ["total_grains(8)", "255"], ["total_grains(64)", "18446744073709551615"]] }],
     indices: ["Une boucle for qui tourne « cases » fois : à chaque tour, on ajoute les grains de la case, puis on double pour la case suivante.", "total = total + grains, puis grains = grains * 2.", "Remarque le résultat pour 3 cases (7) et 8 cases (255) : c'est toujours une puissance de 2, moins 1."] },
-  { t: "code", titre: "Les lapins de Fibonacci", ep: "moy", date: "1202", origine: "Pise, Liber abaci", d: 2,
-    accroche: "Un couple de lapins dans un enclos. Combien au bout d'un an ?",
-    caches: ["lapins(3)", "lapins(7)", "lapins(20)"],
-    enonce: `<p>Léonard de Pise, dit Fibonacci, pose ce problème dans son <em>Liber abaci</em> : on place un couple de lapins dans un enclos. Chaque couple donne naissance à un nouveau couple chaque mois, à partir de son deuxième mois d'existence. Aucun lapin ne meurt.</p><p>Au départ, il y a 1 couple. Au bout d'un mois, 2 couples. Ensuite, le nombre de couples d'un mois est la somme des nombres de couples des deux mois précédents.</p><p>Écris la fonction <code>lapins(mois)</code> qui renvoie le nombre de couples au bout de <code>mois</code> mois, avec <code>lapins(0) = 1</code> et <code>lapins(1) = 2</code>. Combien de couples au bout de 12 mois ?</p><aside class="contexte"><strong>Un livre qui change l'Europe.</strong> Le <em>Liber abaci</em> (1202) est surtout célèbre pour autre chose : Fibonacci, qui a grandi à Béjaïa, en Algérie, y présente aux marchands européens les chiffres indo-arabes et le calcul écrit, bien plus efficaces que les chiffres romains.</aside>`,
-    depart: `def lapins(mois):
-    avant, maintenant = 1, 2     # couples au mois 0 et au mois 1
-    # à compléter
-    return maintenant
+  { t: "code", titre: "Les cent volailles", ep: "moy", date: "Ve siècle", origine: "Chine, Zhang Qiujian", d: 2,
+    accroche: "Cent pièces, cent volailles, trois prix. Un problème à plusieurs solutions, mille ans avant l'algèbre.",
+    caches: ["len(cent_volailles())", "cent_volailles()[1]", "sum(cent_volailles()[2])"],
+    enonce: `<p>Le traité de Zhang Qiujian pose ce problème : un coq coûte 5 pièces, une poule 3 pièces, et trois poussins coûtent 1 pièce. Avec 100 pièces, on achète exactement 100 volailles.</p><p><strong>Combien de coqs, de poules et de poussins ?</strong> Il y a plusieurs réponses possibles.</p><p>Écris la fonction <code>cent_volailles()</code> qui renvoie la liste de toutes les solutions, sous la forme de triplets <code>(coqs, poules, poussins)</code>, rangés par nombre de coqs croissant. Une solution peut ne contenir aucun coq.</p>`,
+    depart: `def cent_volailles():
+    solutions = []
+    for coqs in range(0, 21):
+        for poules in range(0, 34):
+            poussins = 100 - coqs - poules
+            # à compléter : garder le triplet si le prix total vaut 100
+    return solutions
 `,
-    solution: `def lapins(mois):
-    avant, maintenant = 1, 2     # couples au mois 0 et au mois 1
-    if mois == 0:
-        return avant
-    for i in range(mois - 1):
-        avant, maintenant = maintenant, avant + maintenant
-    return maintenant
+    solution: `def cent_volailles():
+    solutions = []
+    for coqs in range(0, 21):
+        for poules in range(0, 34):
+            poussins = 100 - coqs - poules
+            if poussins % 3 == 0 and 5 * coqs + 3 * poules + poussins // 3 == 100:
+                solutions.append((coqs, poules, poussins))
+    return solutions
 `,
-    tests: [{ appels: [["lapins(0)", "1"], ["lapins(1)", "2"], ["lapins(2)", "3"], ["lapins(5)", "13"], ["lapins(12)", "377"]] }],
-    indices: ["Pour mois = 0, il faut renvoyer 1 : traite ce cas à part.", "Pour passer d'un mois au suivant : avant, maintenant = maintenant, avant + maintenant.", "Pour arriver au mois voulu en partant du mois 1, il faut répéter ce passage mois − 1 fois."] },
-  { t: "reponse", titre: "La partie interrompue", ep: "mod", date: "1654", origine: "Paris et Toulouse", d: 3,
-    accroche: "Comment partager l'enjeu d'un jeu qu'on n'a pas fini ? Pascal et Fermat inventent les probabilités pour répondre.",
-    enonce: `<p>Deux joueurs misent 32 pistoles chacun. Ils jouent à pile ou face, manche après manche : le premier qui gagne 3 manches emporte les 64 pistoles. La partie est interrompue alors que le premier joueur mène 2 manches à 1.</p><p>Blaise Pascal et Pierre de Fermat échangent des lettres à ce sujet pendant l'été 1654. Leur principe : partager l'enjeu selon les chances que chacun avait de gagner si la partie avait continué.</p><p><strong>Combien de pistoles doit recevoir le joueur qui mène ?</strong></p>`,
-    reponse: 48, indices: ["Imagine la manche suivante. Si le joueur qui mène la gagne, il emporte tout. Sinon, que vaut la situation ?", "S'il perd la manche suivante, les joueurs sont à 2 partout : chacun devrait alors recevoir 32 pistoles.", "Il est donc sûr d'avoir 32 pistoles, et il a une chance sur deux de gagner les 32 autres."],
-    expl: "Le joueur qui mène est sûr de 32 pistoles, et les 32 autres se jouent à une chance sur deux : il lui en revient la moitié, soit 16. Total : 48 pistoles, contre 16 pour son adversaire. C'est le raisonnement de Pascal ; Fermat arrive au même résultat en comptant les suites de manches possibles.",
-    histoire: `<aside class="contexte"><strong>La naissance des probabilités.</strong> Le problème des partis circule depuis le XV<sup>e</sup> siècle, et plusieurs mathématiciens italiens s'y sont trompés. Il est soumis à Pascal par Antoine Gombaud, chevalier de Méré, joueur et homme de lettres. La correspondance de 1654 entre Pascal, à Paris, et Fermat, à Toulouse, est considérée comme l'acte de naissance du calcul des probabilités.</aside>` },
+    tests: [{ appels: [["cent_volailles()", "[(0, 25, 75), (4, 18, 78), (8, 11, 81), (12, 4, 84)]"]] }],
+    indices: ["Les poussins se vendent par trois : leur nombre doit être un multiple de 3 (poussins % 3 == 0).", "Le prix total est 5 * coqs + 3 * poules + poussins // 3.", "Pour ajouter une solution : solutions.append((coqs, poules, poussins))."] },
+  { t: "reponse", titre: "Le pari du chevalier de Méré", ep: "mod", date: "1654", origine: "Paris", d: 2,
+    accroche: "Parier qu'un six sortira en quatre lancers : bonne ou mauvaise affaire ?",
+    enonce: `<p>Le chevalier de Méré parie souvent qu'il obtiendra <strong>au moins un six en lançant quatre fois un dé</strong>. Le pari est à égalité : s'il gagne, on lui verse sa mise ; s'il perd, il la laisse.</p><p>Il est plus simple de calculer d'abord la probabilité de n'obtenir aucun six.</p><p><strong>Quelle est la probabilité qu'il gagne son pari ?</strong> Donne une valeur arrondie au centième.</p>`,
+    reponse: 0.5177, tol: 0.006, indices: ["À chaque lancer, la probabilité de ne pas faire six est 5/6.", "Aucun six en quatre lancers : 5/6 × 5/6 × 5/6 × 5/6.", "La probabilité cherchée est 1 moins ce produit."],
+    expl: "(5/6)⁴ ≈ 0,482, donc la probabilité d'au moins un six vaut environ 0,518. Un peu plus d'une chance sur deux : à la longue, le pari est gagnant.",
+    histoire: `<aside class="contexte"><strong>Le pari suivant.</strong> Méré propose ensuite de parier sur au moins un double six en vingt-quatre lancers de deux dés. Il pense que cela revient au même, puisque 4 est à 6 ce que 24 est à 36. C'est faux : la probabilité tombe à 0,491, un peu moins d'une chance sur deux. Il s'en plaint à Pascal, qui en parle à Fermat dans une lettre de 1654, en même temps que du problème de la partie interrompue.</aside>` },
   { t: "reponse", titre: "La punition du petit Gauss", ep: "mod", date: "vers 1786", origine: "Brunswick", d: 1,
     accroche: "Additionner tous les entiers de 1 à 1 000 sans y passer la journée.",
     enonce: `<p>On raconte qu'un maître d'école, pour occuper sa classe, demanda à ses élèves d'additionner tous les entiers de 1 à 100. Le jeune Carl Friedrich Gauss, neuf ans, aurait posé son ardoise presque aussitôt, avec la bonne réponse : 5 050.</p><p>Son idée : écrire la somme à l'endroit, puis à l'envers, et additionner terme à terme.</p><p><strong>Combien vaut la somme de tous les entiers de 1 à 1 000 ?</strong></p>`,

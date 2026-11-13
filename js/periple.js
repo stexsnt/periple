@@ -259,10 +259,9 @@ function etapeManip(z, c, i, e) {
   z.innerHTML = `<h1>${h(e.titre)}</h1><div class="prose">${e.intro || ""}</div><div class="widget"></div>`;
   let fait = false; const ok = etoiles => { if (fait) return; fait = true; if (avancement(c).f === c.etapes.length - 1 && !S.faits[idEtape(c, i)]) confettis(); bandeauSucces(z, c, i, etoiles, e.expl); };
   const zone = $(".widget", z);
-  if (e.widget === "promenade") promenade(zone, "promenade", ok);
-  else if (e.widget === "sauvetage") promenade(zone, "sauvetage", ok);
-  else if (e.widget === "montyjeu") montyJeu(zone, ok);
+  MANIPS[e.widget](zone, ok);
 }
+const MANIPS = { promenade: (z, ok) => promenade(z, "promenade", ok), sauvetage: (z, ok) => promenade(z, "sauvetage", ok), montyjeu: montyJeu };
 
 const WIDGETS_QUIZ = { archimede: widgetArchimede, konigsberg: z => promenade(z, "plan", () => {}), montysim: montySim };
 
@@ -275,8 +274,25 @@ const VIGNETTES = {
   montyhall: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="26" width="28" height="70" class="v0"/><rect x="46" y="26" width="28" height="70" class="v0"/><path d="M82 26h28v70H82z" class="v2"/><path d="M82 26l16 8v70l-16-8z" class="v1"/><circle cx="32" cy="62" r="2.2" class="vp"/><circle cx="68" cy="62" r="2.2" class="vp"/><path d="M4 96h112" class="v0"/></svg>`,
 };
 
+Object.assign(VIGNETTES, {
+  babylone: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="12" y="16" width="96" height="88" rx="22" class="v0"/><rect x="34" y="34" width="52" height="52" class="v1"/><path d="M34 34L86 86M86 34L34 86" class="v1"/></svg>`,
+  pythagore: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="24" y="24" width="72" height="72" class="v0"/><path d="M24 96L96 24" class="v1"/><circle cx="24" cy="96" r="5" class="vn"/><circle cx="96" cy="24" r="5" class="vn"/></svg>`,
+  zenon: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M10 84H110" class="v0"/><path d="M10 84A25 25 0 0 1 60 84A12.5 12.5 0 0 1 85 84A6.2 6.2 0 0 1 97.5 84A3.1 3.1 0 0 1 103.7 84" class="v1"/><circle cx="110" cy="84" r="4.5" class="vn"/></svg>`,
+  euclide: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="10" y="36" width="100" height="38" class="v0"/><path d="M48 36V74M86 36V74" class="v1"/><path d="M86 60H110M98 60V74" class="v1"/><rect x="86" y="36" width="24" height="24" class="v2"/></svg>`,
+  eratosthene: `<svg viewBox="0 0 120 120" aria-hidden="true">${[0, 1, 2, 3].map(l => [0, 1, 2, 3].map(c => { const n = 2 + l * 4 + c; return `<circle cx="${24 + c * 24}" cy="${24 + l * 24}" r="${[2, 3, 5, 7, 11, 13, 17].includes(n) ? 8 : 4}" class="${[2, 3, 5, 7, 11, 13, 17].includes(n) ? "vn" : "v0"}"/>`; }).join("")).join("")}</svg>`,
+  brahmagupta: `<svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="60" rx="26" ry="40" class="v1"/><path d="M14 104H106" class="v0"/><circle cx="60" cy="60" r="3" class="vp"/></svg>`,
+  alkhwarizmi: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="16" y="16" width="54" height="54" class="v0"/><rect x="70" y="16" width="34" height="54" class="v1"/><rect x="16" y="70" width="54" height="34" class="v1"/><rect x="70" y="70" width="34" height="34" class="v2"/></svg>`,
+  fibonacci: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M14 30H110V90H14ZM74 30V90M14 66H74M50 66V90" class="v0" style="opacity:.55"/><path d="M110 90A60 60 0 0 0 50 30A36 36 0 0 0 14 66A24 24 0 0 0 38 90A12 12 0 0 0 50 78" class="v1"/></svg>`,
+  partis: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M60 60V18A42 42 0 1 1 18 60Z" class="v2"/><circle cx="60" cy="60" r="42" class="v0"/><path d="M60 18V60H18" class="v1"/></svg>`,
+  newton: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M10 84H110" class="v0"/><path d="M18 100C50 96 80 70 100 14" class="v0"/><path d="M52 104L104 4" class="v1"/><circle cx="90" cy="31" r="5" class="vn"/><circle cx="62.5" cy="84" r="4" class="vp"/></svg>`,
+  galois: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M60 18L100 90H20Z" class="v0"/><path d="M40 34A44 44 0 0 1 80 34M104 70A44 44 0 0 1 78 104M42 104A44 44 0 0 1 16 70" class="v1"/><circle cx="60" cy="18" r="6" class="vn"/><circle cx="100" cy="90" r="6" class="vn"/><circle cx="20" cy="90" r="6" class="vn"/></svg>`,
+  cantor: `<svg viewBox="0 0 120 120" aria-hidden="true">${[0, 1, 2, 3].map(k => `<rect x="${16 + 22 * k}" y="${16 + 22 * k}" width="22" height="22" class="v2"/>`).join("")}<path d="M16 16H104V104H16ZM38 16V104M60 16V104M82 16V104M16 38H104M16 60H104M16 82H104" class="v0"/></svg>`,
+  hilbert: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M8 96H112" class="v0"/><rect x="12" y="40" width="26" height="56" class="v1"/><rect x="44" y="52" width="20" height="44" class="v0"/><rect x="70" y="62" width="15" height="34" class="v0"/><rect x="90" y="70" width="11" height="26" class="v0"/><circle cx="32" cy="70" r="2.2" class="vp"/><circle cx="106" cy="84" r="1.6" class="vp"/><circle cx="111" cy="86" r="1.2" class="vp"/></svg>`,
+  turing: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M4 50H116V78H4M28 50V78M52 50V78M76 50V78M100 50V78" class="v0"/><rect x="52" y="50" width="24" height="28" class="v2"/><path d="M64 44L54 26H74Z" class="v1"/><circle cx="16" cy="64" r="3" class="vp"/><circle cx="88" cy="64" r="3" class="vp"/></svg>`,
+});
+
 function frise() {
-  const pts = [...ESCALES().map(c => ({ an: c.an, date: c.date, nom: c.titre, genre: c.genre, c })), ...A_VENIR].sort((a, b) => a.an - b.an);
+  const pts = [...ESCALES().map(c => ({ an: c.an, date: c.date, nom: c.court || c.titre, genre: c.genre, c })), ...A_VENIR].sort((a, b) => a.an - b.an);
   const PAS = 64, X0 = 56, W = X0 * 2 + PAS * (pts.length - 1), Y = 96;
   return `<div class="chrono-defile" tabindex="0" role="group" aria-label="Frise chronologique des escales, de Babylone à aujourd'hui"><svg class="chrono" viewBox="0 0 ${W} 192" style="min-width:960px">
     <path d="M${X0 - 34} ${Y}H${W - X0 + 34}" class="axe"/><path d="M${W - X0 + 34} ${Y}l-9-5v10z" class="pointe"/>
@@ -300,9 +316,9 @@ function vueAccueil() {
   <section class="hero">
     <div class="hero-texte">
       <h1>Refais les gestes qui ont fait les mathématiques.</h1>
-      <p>Un voyage de Syracuse à Berkeley. À chaque escale, un problème à affronter, une méthode à essayer de tes mains, puis l'histoire de celles et ceux qui l'ont résolu.</p>
+      <p>Dix-sept escales, de Babylone à Berkeley. À chaque escale, un problème à affronter, une méthode à essayer de tes mains, puis l'histoire de celles et ceux qui l'ont résolu.</p>
       <div class="hero-actions">
-      <a class="btn gros" href="${lien}">${!suite ? "Voir mon profil" : commence ? `Reprendre : ${h(suite.titre)}` : "Embarquer avec Archimède"}</a><a class="btn gros secondaire" href="#/problemes">Tenter un problème</a></div>
+      <a class="btn gros" href="${lien}">${!suite ? "Voir mon profil" : commence ? `Reprendre : ${h(suite.titre)}` : "Commencer le voyage"}</a><a class="btn gros secondaire" href="#/problemes">Tenter un problème</a></div>
     </div>
     <figure class="hero-fig">
       <div class="hero-svg"></div>
@@ -312,21 +328,21 @@ function vueAccueil() {
   <div class="ruban-pi" aria-hidden="true"><div><span>π = 3,1415926535 8979323846 2643383279 5028841971 6939937510 5820974944 5923078164 0628620899 8628034825 3421170679… </span><span>π = 3,1415926535 8979323846 2643383279 5028841971 6939937510 5820974944 5923078164 0628620899 8628034825 3421170679… </span></div></div>
   <section class="route" aria-labelledby="t-route">
     <h2 id="t-route">La route</h2>
-    <p class="route-intro">Trois escales sont ouvertes. Les autres points marquent la suite du voyage.</p>
+    <p class="route-intro">Trente-huit siècles de mathématiques. Suis la route dans l'ordre, ou saute directement à l'escale qui t'intrigue.</p>
     ${frise()}
-    <p class="chrono-legende"><span class="methode">Méthode</span><span class="paradoxe">Paradoxe</span><span class="figure">Figure en son temps</span><span class="avenir">À venir</span></p>
+    <p class="chrono-legende"><span class="methode">Méthode</span><span class="paradoxe">Paradoxe</span><span class="figure">Figure en son temps</span>${A_VENIR.length ? `<span class="avenir">À venir</span>` : ""}</p>
   </section>
   <section aria-labelledby="t-escales">
-    <h2 id="t-escales" class="sr">Les escales ouvertes</h2>
-    <ol class="escales">${liste.map(c => {
+    <h2 id="t-escales" class="sr">Les escales</h2>
+    ${PARCOURS.filter(ep => ep.chapitres.length).map(ep => `<h3 class="ep-titre ep-${ep.id}"><span>${h(ep.titre)}</span> ${h(ep.sous)}</h3>
+    <ol class="escales">${ep.chapitres.map(c => {
       const a = avancement(c), s = etoilesChap(c);
-      const ep = PARCOURS.find(q => q.chapitres.includes(c));
       return `<li class="${c.genre} ep-${ep.id} ${a.fini ? "fait" : ""}"><a href="#/c/${c.id}/${premierAFaire(c)}">
         <span class="quand"><span class="epoque">${h(ep.titre)}</span><span class="date">${h(c.date).replace("av. J.-C.", '<span class="nb">av. J.-C.</span>')}</span><span class="lieu">${h(c.lieu)}</span></span>
         <span class="quoi"><span class="genre">${GENRES[c.genre]}</span><strong>${h(c.titre)}</strong><span class="accroche">${h(c.accroche)}</span>
           <span class="etat">${a.f > 0 ? `${a.f} étape${a.f > 1 ? "s" : ""} sur ${a.n} ${etoilesHtml(s.n ? Math.max(1, Math.round(3 * s.n / s.max)) : 0)}` : `${a.n} étapes`}<span class="niveau">${h(c.niveau)}</span></span></span>
         <span class="vignette">${VIGNETTES[c.id] || ""}</span></a></li>`;
-    }).join("")}</ol>
+    }).join("")}</ol>`).join("")}
   </section>`;
   /* Un seul mouvement à l'arrivée : les polygones doublent leurs côtés, comme chez Archimède. */
   clearInterval(heroMinuterie);

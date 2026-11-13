@@ -871,3 +871,109 @@ figure.figure .graphe circle { fill: var(--fond); stroke: var(--soleil); }
   .hero-enc { font-size: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) { .ruban-pi > div { animation: none; } .btn, .escales li, .pb-liste li, body { transition: none; } }
+
+/* ============================================================
+   Manipulations des escales ajoutées après le pilote (js/manips.js)
+   ============================================================ */
+.ep-titre { margin: 2.6rem 0 0; font: 400 1.05rem var(--texte); font-style: italic; color: var(--encre2); display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem 1rem; }
+.ep-titre span { font: 700 clamp(1.6rem, 1.2rem + 1.4vw, 2.2rem) var(--titre); font-style: normal; color: var(--e); }
+.ep-titre + .escales { margin-top: 1rem; }
+
+.mcarte { display: grid; gap: 1rem 2rem; padding: 1.2rem; border: 1px solid var(--trait); border-radius: 18px; background: var(--carte); max-width: 46rem; }
+.mcarte.heron, .mcarte.carre { grid-template-columns: minmax(0, 240px) minmax(0, 1fr); align-items: start; }
+.mcol { display: grid; gap: .7rem; min-width: 0; }
+.mcarte svg { display: block; width: 100%; height: auto; }
+.mtitre { margin: 0; font: 700 1.1rem var(--titre); }
+.metat { margin: 0; font-weight: 700; min-height: 3.2em; }
+.mcarte .muet, .mcarte .actions { margin: 0; }
+.mtable { margin: 0; width: 100%; font-size: .92rem; font-variant-numeric: tabular-nums; }
+.mtable tr.ici td { background: color-mix(in srgb, var(--soleil) 25%, transparent); }
+.mtable td b { color: var(--soleil); }
+[data-theme="clair"] .mtable td b { color: var(--ciel); }
+.mjournal { margin: 0; padding-left: 1.4rem; font-family: var(--ui); }
+.mchiffres { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: .6rem 1.2rem; margin: 0; }
+.mchiffres dt { font: .9rem var(--ui); color: var(--encre2); }
+.mchiffres dd { margin: 0; font: 700 1.3rem var(--titre); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.mcarte .cas[aria-pressed="true"] { background: var(--encre); color: var(--fond); border-color: var(--encre); }
+.mcarte .cote { font: italic 14px var(--titre); fill: var(--encre); text-anchor: middle; }
+.mcarte .cote.g { text-anchor: start; }
+.mcarte .cc { font: 700 15px var(--ui); fill: var(--nuit); text-anchor: middle; }
+.mcarte .axe { stroke: var(--encre2); stroke-width: 1.2; fill: none; }
+.mcarte .gradu { font: 11px var(--ui); fill: var(--encre2); text-anchor: middle; }
+.mcarte input[type="number"], .mcarte select { font: 700 1.1rem var(--ui); padding: .35rem .6rem; border: 2px solid var(--encre2); border-radius: 10px; background: var(--fond); color: var(--encre); }
+.mcarte input[type="number"] { width: 7.5rem; }
+
+.heron-fig .cible { fill: none; stroke: var(--encre2); stroke-width: 1.2; stroke-dasharray: 4 4; }
+.heron-fig .plein { fill: color-mix(in srgb, var(--p1) 28%, transparent); stroke: var(--p1); stroke-width: 2; }
+.chasse-form { display: flex; flex-wrap: wrap; align-items: end; gap: .8rem; }
+.chasse-form label { display: grid; gap: .2rem; font-size: .9rem; }
+.chasse-form .sur { font: 700 1.8rem var(--titre); padding-bottom: .1rem; }
+.zenon-fig .achille { fill: var(--soleil); } .zenon-fig .tortue { fill: var(--ecaille); }
+.zenon-fig .nomf { font: 700 12px var(--ui); fill: var(--encre); text-anchor: middle; }
+.euclide-fig .reste { fill: color-mix(in srgb, var(--encre) 8%, transparent); stroke: var(--encre2); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.euclide-fig .carre { stroke: var(--carte); stroke-width: 2; }
+
+.crible { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 4px; max-width: 30rem; }
+.crible button { aspect-ratio: 1; padding: 0; border: 1.5px solid var(--trait); border-radius: 8px; background: var(--fond); color: var(--encre); font: 700 clamp(.75rem, 2.4vw, 1rem) var(--ui); cursor: pointer; }
+.crible button:hover:not(:disabled) { border-color: var(--soleil); }
+.crible button.c-premier { background: var(--soleil); border-color: var(--soleil); color: var(--nuit); }
+.crible button.c-barre { color: var(--encre2); opacity: .45; text-decoration: line-through; }
+.crible button.un { opacity: .25; cursor: default; }
+
+.colonnes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.colonne { display: grid; gap: .5rem; justify-items: center; padding: .7rem .4rem; border: 1.5px solid var(--trait); border-radius: 12px; }
+.col-nom { font: 700 .95rem var(--ui); }
+.jetons { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 5px; min-height: 4.2rem; max-width: 6rem; }
+.jetons i, .enclos i { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--soleil); }
+.jetons .vide { font: italic .95rem var(--titre); color: var(--encre2); align-self: center; }
+.colonne .btn { min-width: 2.6rem; padding-inline: .6rem; }
+
+.carre-fig .k-x2 { fill: var(--p1); } .carre-fig .k-bx { fill: var(--soleil); } .carre-fig .k-coin { fill: var(--p2); }
+.carre-fig rect { stroke: var(--carte); stroke-width: 2; }
+[data-theme="clair"] .carre-fig .cc { fill: #FFFFFF; } [data-theme="clair"] .carre-fig .k-bx + .k-bx ~ .cc { fill: #FFFFFF; }
+.enclos { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 5.5rem; padding: .8rem; border: 1.5px dashed var(--encre2); border-radius: 14px; }
+.enclos i.je { width: 9px; height: 9px; background: var(--p1); }
+.partis-choix { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; }
+.partis-choix label { display: grid; gap: .25rem; font-size: .92rem; }
+.partage { display: flex; height: 26px; border-radius: 99px; overflow: hidden; background: var(--p2); }
+.partage .pa-1 { background: var(--soleil); transition: width .3s; }
+.newton-fig .courbe { fill: none; stroke: var(--encre); stroke-width: 2.2; }
+.newton-fig .tangente { stroke: var(--soleil); stroke-width: 2; fill: none; } .newton-fig .tangente.vieux { opacity: .4; stroke-width: 1.2; }
+.newton-fig .rappel { stroke: var(--encre2); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+.newton-fig .pt-x { fill: var(--encre2); } .newton-fig .pt-x.ici { fill: var(--soleil); } .newton-fig .pt-c { fill: var(--p2); }
+
+.jetons-perm { display: flex; gap: .8rem; }
+.jp { display: grid; place-items: center; width: 4.2rem; height: 4.2rem; border-radius: 50%; font: italic 700 1.4rem var(--titre); color: var(--nuit); }
+.jp.j0 { background: var(--soleil); } .jp.j1 { background: #4CC9F0; } .jp.j2 { background: #FF8AC0; }
+.dispositions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.dispositions span { padding: .25rem .7rem; border: 1.5px dashed var(--encre2); border-radius: 99px; font: italic 1rem var(--titre); color: var(--encre2); }
+.dispositions span.vu { border-style: solid; border-color: var(--ecaille); color: var(--encre); }
+.dispositions span.ici { background: var(--ecaille); color: var(--sur-ecaille); }
+
+.diag { display: grid; gap: 5px; overflow-x: auto; }
+.dl { display: flex; align-items: center; gap: 5px; }
+.dn { flex: 0 0 8.2rem; font: .9rem var(--ui); color: var(--encre2); }
+.dl button, .dc { flex: 0 0 2.2rem; height: 2.2rem; display: grid; place-items: center; border: 1.5px solid var(--trait); border-radius: 8px; background: var(--fond); color: var(--encre); font: 700 1.05rem var(--mono); padding: 0; }
+.dl button { cursor: pointer; } .dl button:hover { border-color: var(--soleil); }
+.dl button.dd { border-color: var(--p2); border-width: 2.5px; }
+.dnouv { margin-top: .5rem; padding-top: .6rem; border-top: 1.5px solid var(--trait); }
+.dnouv .dn { color: var(--soleil); font-weight: 700; } .dnouv .dc { background: var(--soleil); border-color: var(--soleil); color: var(--nuit); }
+.dp { color: var(--encre2); padding-left: .2rem; }
+
+.hotel { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.4rem, 1fr)); gap: 6px; }
+.chambre { display: grid; gap: .1rem; padding: .45rem .5rem; border: 1.5px solid var(--trait); border-radius: 10px; background: var(--fond); min-height: 4.3rem; align-content: start; }
+.ch-n { font: 700 1.25rem var(--titre); } .ch-o { font: .8rem/1.25 var(--ui); color: var(--encre2); }
+.chambre.nouv { border-color: var(--soleil); background: color-mix(in srgb, var(--soleil) 18%, var(--fond)); } .chambre.nouv .ch-o { color: var(--encre); font-weight: 700; }
+.chambre.suite { border-style: dashed; }
+
+.ruban { display: flex; gap: 4px; padding-top: 1.4rem; overflow-x: auto; }
+.ruban .case { position: relative; flex: 0 0 3rem; height: 3.4rem; display: grid; place-items: center; border: 1.5px solid var(--encre2); border-radius: 8px; font: 700 1.5rem var(--mono); background: var(--fond); }
+.ruban .case.tete { border-color: var(--soleil); border-width: 3px; }
+.ruban .case.tete::before { content: ""; position: absolute; top: -1.2rem; left: 50%; translate: -50% 0; border: .55rem solid transparent; border-top-color: var(--soleil); }
+
+@media (max-width: 760px) {
+  .mcarte.heron, .mcarte.carre { grid-template-columns: minmax(0, 1fr); }
+  .heron-fig, .carre-fig { max-width: 240px; }
+  .dn { flex-basis: 5.4rem; }
+}
+.escales .epoque { display: none; }
