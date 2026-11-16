@@ -21,7 +21,10 @@
      manip   : { t, titre, intro (HTML), widget: "promenade" | "sauvetage" | "montyjeu", expl }
                (manipulation libre, validée quand l'objectif du widget est atteint)
 
-   Ajoutez les nouvelles étapes À LA FIN d'une escale : la progression est enregistrée par position.
+   Où ajouter une étape : à la fin d'une escale, sans rien de plus. Pour l'insérer AU MILIEU, lui donner
+   « numero: n », où n est le premier numéro libre (le nombre d'étapes de l'escale avant l'ajout,
+   si aucune n'a encore de numéro). Les autres étapes gardent ainsi leur numéro et la progression des
+   élèves n'est pas décalée. Ne jamais supprimer ni réutiliser un numéro ; tests/verifier.js le contrôle.
    ============================================================ */
 
 /* ----- Figures fixes ----- */
@@ -355,7 +358,7 @@ const A_VENIR = [
      reponse : { t, enonce (HTML), reponse (nombre), tol?, indices:[...], expl, histoire? (HTML) }
                (réponse saisie au clavier : entier, décimal à virgule ou fraction a/b)
      code    : comme dans les escales.
-   Ajoutez les nouveaux problèmes À LA FIN : la progression est enregistrée par position.
+   Ajoutez les nouveaux problèmes à la fin, ou au milieu avec « numero: n » (même règle que pour les étapes).
    ============================================================ */
 const DEFIS = { id: "defis", titre: "Problèmes", resume: "", etapes: [
   { t: "reponse", titre: "Sept maisons, sept chats", ep: "ant", date: "vers 1650 av. J.-C.", origine: "Égypte, papyrus Rhind", d: 1,
