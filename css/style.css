@@ -1019,3 +1019,7 @@ dialog.projection form { margin-top: 1.2rem; }
 
 /* ----- Contrastes relevés par l'audit d'accessibilité (WCAG AA) ----- */
 [data-theme="clair"] .pb-jour { color: #8F6400; }
+
+/* ----- Graphiques matplotlib affichés dans la console ----- */
+.cons img.figure { display: block; max-width: 100%; height: auto; margin: .6rem 0; background: #fff; border-radius: 10px; border: 1px solid var(--trait); }
+#etat-python[data-etat="paquets"]::before { background: var(--soleil); }
