@@ -980,3 +980,10 @@ figure.figure .graphe circle { fill: var(--fond); stroke: var(--soleil); }
   .dn { flex-basis: 5.4rem; }
 }
 .escales .epoque { display: none; }
+
+/* ----- Confort : rappel de sauvegarde et état de Python (js/confort.js) ----- */
+.rappel-sauv { position: fixed; z-index: 40; left: 1rem; bottom: 5.5rem; right: 1rem; max-width: 27rem; padding: 1rem 1.2rem; border: 1px solid var(--trait); border-left: 5px solid var(--soleil); border-radius: 14px; background: var(--carte); color: var(--encre); box-shadow: 0 10px 30px rgba(0, 0, 0, .22); display: grid; gap: .7rem; animation: pose .3s; }
+.rappel-sauv p { margin: 0; }
+.rappel-sauv .actions { margin: 0; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+#etat-python .reessayer { min-height: 0; padding: 0 .2rem; font-size: inherit; }
+@media (min-width: 761px) { .rappel-sauv { bottom: 1rem; left: auto; } }

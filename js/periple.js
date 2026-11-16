@@ -29,7 +29,7 @@ function figArchimede(n) {
 
 /* Encadrement affiché avec ses chiffres communs mis en avant : ce sont les chiffres certains de π. */
 function encadrement(n, d = 5) {
-  const a = (Math.floor(borneInf(n) * 10 ** d) / 10 ** d).toFixed(d), b = (Math.ceil(borneSup(n) * 10 ** d) / 10 ** d).toFixed(d);
+  const a = (Math.floor(borneInf(n) * 10 ** d + 1e-7) / 10 ** d).toFixed(d), b = (Math.ceil(borneSup(n) * 10 ** d - 1e-7) / 10 ** d).toFixed(d);   // 1e-7 : 6 sin(π/6) vaut 2,9999999999999996 en machine
   let k = 0; while (k < a.length && a[k] === b[k]) k++;
   const m = s => `<b>${s.slice(0, k).replace(".", ",")}</b>${s.slice(k).replace(".", ",")}`;
   return { html: `<span class="borne inf">${m(a)}</span> &lt; <span class="m">π</span> &lt; <span class="borne sup">${m(b)}</span>`, surs: Math.max(0, k - 2), a, b };
